@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 // TODO add this utility
 const dateFormat = require('../utils/dateFormat');
+const validateEmail = require('../utils/validateEmail');
 
 const UserSchema = new Schema({
 	username: {
