@@ -1,5 +1,4 @@
 const { Schema, model, Types } = require('mongoose');
-// TODO create this file
 const dateFormat = require('../utils/dateFormat');
 
 const ReactionSchema = new Schema(

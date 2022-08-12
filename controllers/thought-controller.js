@@ -1,6 +1,21 @@
 const { Thought, User } = require('../models');
 
 const thoughtController = {
+	// get all thoughts
+	getAllThoughts(req, res) {
+		Thought.find({})
+			// .populate({
+			// 	path: 'user',
+			// 	select: '-__v',
+			// })
+			.select('-__v')
+			.sort({ __id: -1 })
+			.then((dbThoughtData) => res.json(dbThoughtData))
+			.catch((err) => {
+				console.log(err);
+				res.status(400).json(err);
+			});
+	},
 	// add thought
 	addThought({ params, body }, res) {
 		Thought.create(body)
@@ -39,7 +54,7 @@ const thoughtController = {
 		Thought.findOneAndUpdate({ _id: params.thoughtId }, { $push: { reactions: body } }, { new: true, runValidators: true })
 			.then((dbUserData) => {
 				if (!dbUserData) {
-					res.status(404), json({ message: 'No user found with this id' });
+					res.status(404).json({ message: 'No user found with this id' });
 					return;
 				}
 				res.json(dbUserData);
